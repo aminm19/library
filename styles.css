@@ -1,11 +1,12 @@
 body {
-	font-family: Arial, sans-serif;
+	font-family: Quintessential, Arial, sans-serif;
 	background: #f4f4f4;
 	margin: 0;
 	padding: 0;
+    font-size: 22px;
 }
 .container {
-	max-width: 600px;
+	max-width: 800px;
 	margin: 40px auto;
 	background: #fff;
 	padding: 24px;
@@ -21,9 +22,43 @@ body {
 	padding: 12px;
 	border-radius: 4px;
 	font-size: 1.1em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+input[type="checkbox"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+    cursor: pointer;
 }
 .book.read {
     background: #d4edda;
+}
+.book.unread {
+    background: #f8d7da;
+}
+.title {
+    font-weight: bold;
+    margin-right: 8px;
+}
+.author {
+    margin-right: 4px;
+}
+.pages {
+    margin-right: 4px;
+}
+/* .status {
+    font-style: italic;
+} */
+.deleteBtn{
+	margin-left: auto;
+	background: transparent;
+	border: none;
+	color: #dc3545;
+	cursor: pointer;
+}
+.deleteBtn:hover {
+    color: #a71d2a;
 }
 .newBtn {
 	display: flex;

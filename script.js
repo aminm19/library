@@ -6,10 +6,11 @@ function Book(title, author, numPages, isRead) {
     this.author = author;
     this.numPages = numPages;
     this.isRead = isRead;
+    this.id = crypto.randomUUID();
 }
 
 Book.prototype.info = function() {
-    const state = this.isRead ? 'already read' : 'not read yet';
+    const state = this.isRead ? 'read' : 'not read yet';
     return `${this.title} by ${this.author}, ${this.numPages} pages, ${state}`;
 };
 
@@ -26,10 +27,49 @@ function displayBooks() {
   myLibrary.forEach(book => {
     const div = document.createElement('div');
     div.className = 'book';
+    div.setAttribute('data-id', book.id);
+    div.setAttribute('id', book.id);
+    const readStatus = document.createElement('input');
+    readStatus.setAttribute('type', 'checkbox');
+    readStatus.className = book.isRead ? 'true' : 'false';
+    readStatus.checked = book.isRead;
+    readStatus.addEventListener('change', () => {
+      book.isRead = readStatus.checked;
+      displayBooks();
+    });
+    div.appendChild(readStatus);
     if (book.isRead) {
       div.classList.add('read');
     }
-    div.textContent = book.info();
+    const infoSpan = document.createElement('span');
+    const titleSpan = document.createElement('span');
+    titleSpan.className = 'title';
+    titleSpan.textContent = `"${book.title}" `;
+    infoSpan.appendChild(titleSpan);
+    const authorSpan = document.createElement('span');
+    authorSpan.className = 'author';
+    authorSpan.textContent = `by ${book.author}, `;
+    infoSpan.appendChild(authorSpan);
+    const pagesSpan = document.createElement('span');
+    pagesSpan.className = 'pages';
+    pagesSpan.textContent = `${book.numPages} pages, `;
+    infoSpan.appendChild(pagesSpan);
+    const statusSpan = document.createElement('span');
+    statusSpan.className = 'status';
+    statusSpan.textContent = book.isRead ? 'read' : 'not read yet';
+    infoSpan.appendChild(statusSpan);
+    div.appendChild(infoSpan);
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'deleteBtn';
+    deleteBtn.addEventListener('click', () => {
+      const index = myLibrary.findIndex(b => b.id === book.id);
+      if (index !== -1) {
+        myLibrary.splice(index, 1);
+        displayBooks();
+      }
+    });
+    div.appendChild(deleteBtn);
     bookList.appendChild(div);
   });
 }
