@@ -42,6 +42,7 @@ function displayBooks() {
       div.classList.add('read');
     }
     const infoSpan = document.createElement('span');
+    // create spans for each book attribute for better styling
     const titleSpan = document.createElement('span');
     titleSpan.className = 'title';
     titleSpan.textContent = `"${book.title}" `;
@@ -98,10 +99,12 @@ closeModalBtn.addEventListener('click', () => {
 });
 
 window.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-    addBookForm.reset();
-  }
+    // close modal if clicking outside of content box
+    if (event.target === modal) {
+        modal.style.display = 'none';
+        // reset form fields
+        addBookForm.reset();
+    }
 });
 
 addBookForm.addEventListener('submit', function(e) {
